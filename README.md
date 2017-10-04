@@ -1,9 +1,4 @@
-# Base Web Project Gulp
-
-Base Web Project using: Gulp, Browsersync, Webpack 2, Babel and Karma.
-
-Development server is a combination of Browsersync + Webpack.
-Webpack Hot Middleware watches js files and reloads browser.
+# Data unit test
 
 ## Developer Setup
 
@@ -27,17 +22,9 @@ Requirements
 * From the Terminal:
 
         npm install -g gulp-cli
-        npm run start
-        gulp
+        npm install
+        gulp unit
 
 ## Starting Up The Project
-
-Run ```npm install``` to setup project dependencies.
-
-Run ```gulp``` to build the project for development and open a browser instance with watch.
-
-Run ```gulp prod``` to build the project for production.
-
-Run ```gulp server``` to serve the distribution files.
 
 Run ```gulp unit``` to run unit tests using Karma + Webpack + ChromeHeadless + Code Coverage non transpiled code.
