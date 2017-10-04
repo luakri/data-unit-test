@@ -37,24 +37,62 @@ describe('# AI Store Scenario', function() {
     });
 
     it('should filter venues for 1 user', function() {
-        const venues1 = store.getPlacesToGo(['Robert Webb']);
+        const venues1 = store.getPlacesToGo(['Alan Allen']);
 
-        expect(venues1.length).to.equal(2);
-
-        expect(venues1[0].name).to.equal('Spice of life');
-        expect(venues1[1].name).to.equal('The Cambridge');
+        expect(venues1.length).to.equal(4);
+        expect(venues1[0].name).to.equal('El Cantina');
+        expect(venues1[1].name).to.equal('Twin Dynasty');
+        expect(venues1[2].name).to.equal('Wagamama');
+        expect(venues1[3].name).to.equal('Fabrique');
     });
 
-    it('should filter venues for 2 user', function() {
-        const users1 = getUsersData(users, ['John Davis', 'Gary Jones']);
+    it('should filter venues for 2 users', function() {
+        const venues1 = store.getPlacesToGo(['Alan Allen', 'Bobby Robson']);
 
-        const venues1 = getPlacesToGo(venues, users1);
+        expect(venues1.length).to.equal(3);
+        expect(venues1[0].name).to.equal('Twin Dynasty');
+        expect(venues1[1].name).to.equal('Wagamama');
+        expect(venues1[2].name).to.equal('Fabrique');
+    });
+
+    it('should filter venues for 3 users', function() {
+        const venues1 = store.getPlacesToGo(['Alan Allen', 'Bobby Robson', 'David Lang']);
+
+        expect(venues1.length).to.equal(1);
+        expect(venues1[0].name).to.equal('Wagamama');
+    });
+
+    it('should return places to avoid', function() {
+
+        const users1 = getUsersData(users, ['Alan Allen', 'Bobby Robson', 'David Lang']);
+
+        const venues1 = getPlacesToAvoid(venues, users1);
 
         expect(venues1.length).to.equal(4);
 
-        expect(venues1[0].name).to.equal('Spice of life');
-        expect(venues1[1].name).to.equal('The Cambridge');
-        expect(venues1[2].name).to.equal('Sultan Sofrasi');
-        expect(venues1[3].name).to.equal('Tally Joe');
+        expect(venues1[0].name).to.equal('El Cantina');
+        expect(venues1[0].food[0]).to.equal('Bobby Robson');
+
+        expect(venues1[1].name).to.equal('Twin Dynasty');
+        expect(venues1[1].food[0]).to.equal('David Lang');
+
+        expect(venues1[2].name).to.equal('Spirit House');
+        expect(venues1[2].drinks[0]).to.equal('Alan Allen');
+    });
+
+    it('should return from store places to avoid', function() {
+
+        const venues1 = store.getPlacesToAvoid(['Bobby Robson', 'David Lang']);
+
+        expect(venues1.length).to.equal(3);
+
+        expect(venues1[0].name).to.equal('El Cantina');
+        expect(venues1[0].food[0]).to.equal('Bobby Robson');
+
+        expect(venues1[1].name).to.equal('Twin Dynasty');
+        expect(venues1[1].food[0]).to.equal('David Lang');
+
+        expect(venues1[2].name).to.equal('Fabrique');
+        expect(venues1[2].drinks[0]).to.equal('David Lang');
     });
 });
